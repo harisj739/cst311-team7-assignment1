@@ -22,6 +22,7 @@ def receive_message():
 			message_end = message[-3:]  #Modified this line to properly read the last 3 characters for bye.- Haris
 			#Modified the if statement to also check for "bye" - Haris
 			if message_end == "Bye" or message_end == "bye":
+				print(message)
 				client_socket.send(message.encode())  #Added this line, copied from Line 46 - Haris
 				client_socket.close()
 				break
@@ -30,8 +31,8 @@ def receive_message():
 
 
 		except:
-			print("Session terminated")
-			client_socket.close()
+			# print("Session terminated")
+			# client_socket.close()
 			break	
 
 
@@ -45,13 +46,13 @@ def write_message():
 			message_end = message[-3:]  #Added this as well - Haris
 			if message_end == "Bye" or message_end == "bye":
 				client_socket.send(message.encode())
-				client_socket.close()
+				# client_socket.close()
 				break
 			client_socket.send(message.encode())
 
 		except:
-			print("Session terminated")
-			client_socket.close()
+			# print("Session terminated")
+			# client_socket.close()
 			break
 
 
