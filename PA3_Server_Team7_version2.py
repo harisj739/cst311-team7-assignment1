@@ -81,8 +81,6 @@ def main():
       # Pass the new socket and address off to a connection handler function in a thread.
       # Here we create a thread for each TCP connection established: 
       threading.Thread(target=connection_handler, args=(i, connection_socket, address, host_list)).start()
- 
-      # connection_handler(connection_socket, address) -> commented out for lines above ^
   finally:
     server_socket.close()
 
