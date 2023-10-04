@@ -50,7 +50,6 @@ def write_message():
 			message_end = message[-3:]  #Added this as well - Haris
 			if message_end == "Bye" or message_end == "bye":
 				client_socket.send(message.encode())
-				# client_socket.close()
 				break
 			client_socket.send(message.encode())
 		# Handle exceptions, i.e. a terminated session
