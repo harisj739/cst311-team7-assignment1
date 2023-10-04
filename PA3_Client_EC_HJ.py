@@ -35,8 +35,6 @@ def receive_message():
 
 		# Handle exceptions, i.e. a terminated session
 		except:
-			# print("Session terminated")
-			# client_socket.close()
 			break	
 
 # Send messages to the server
@@ -57,8 +55,6 @@ def write_message():
 			client_socket.send(message.encode())
 		# Handle exceptions, i.e. a terminated session
 		except:
-			# print("Session terminated")
-			# client_socket.close()
 			break
 
 # Thread for receiving messages
