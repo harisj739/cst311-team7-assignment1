@@ -58,8 +58,10 @@ def myNetwork():
     
     # Added static routes to interconnect each router's interfaces to connect the two subnets.
     # Static Routes: r3
-    info(net['r3'].cmd ('ip route add 10.0.1.0/24 via 192.168.0.0 dev r3-eth1'))
-    info(net['r3'].cmd ('ip route add 192.168.1.0/30 via 192.168.0.0 dev r3-eth1'))
+    # info(net['r3'].cmd ('ip route add 10.0.1.0/24 via 192.168.0.0 dev r3-eth1'))
+    # info(net['r3'].cmd ('ip route add 192.168.1.0/30 via 192.168.0.0 dev r3-eth1'))
+    info(net['r3'].cmd ('ip route add 192.168.1.0/30 via 10.0.0.3 dev r3-eth0'))
+    info(net['r3'].cmd ('ip route add 10.0.1.0/24 via 192.168.0.1 dev r3-eth1'))
     # Static Routes: r4
     info(net['r4'].cmd ('ip route add 10.0.0.0/24 via 192.168.0.1 dev r4-eth0'))
     info(net['r4'].cmd ('ip route add 10.0.1.0/24 via 192.168.1.2 dev r4-eth1'))
