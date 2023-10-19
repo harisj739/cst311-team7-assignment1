@@ -28,7 +28,7 @@ def myNetwork():
     s1 = net.addSwitch('s1', cls=OVSKernelSwitch)
     r5 = net.addHost('r5', cls=Node, ip='10.0.1.4/24')
     r5.cmd('sysctl -w net.ipv4.ip_forward=1')
-    r4 = net.addHost('r4', cls=Node, ip='192.168.0.0/30')
+    r4 = net.addHost('r4', cls=Node, ip='192.168.0.2/30')
     r4.cmd('sysctl -w net.ipv4.ip_forward=1')
     r3 = net.addHost('r3', cls=Node, ip='10.0.0.4/24')
     r3.cmd('sysctl -w net.ipv4.ip_forward=1')
@@ -47,8 +47,8 @@ def myNetwork():
     net.addLink(h3, s2)
     net.addLink(h4, s2)
     # Modified the following two addLink statement by connecting each switch to its respective routing interface. 
-    net.addLink(s2, r5, intfName2='r5-eth0', params2={ 'ip' : '10.0.1.3/24' })
-    net.addLink(s1, r3, intfName2='r3-eth0', params2={ 'ip' : '10.0.0.3/24' })
+    net.addLink(s2, r5)
+    net.addLink(s1, r3)
     # Modified the following two addLink statements by adding 2 two-host networks for each link present between the routers.
     net.addLink(r3, r4, intfName1='r3-eth1', params1={ 'ip' : '192.168.0.1/30' }, intfName2='r4-eth0', params2={ 'ip' : '192.168.0.2/30' })
     net.addLink(r4, r5, intfName1='r4-eth1', params1={ 'ip' : '192.168.1.1/30' }, intfName2='r5-eth1', params2={ 'ip' : '192.168.1.2/30' })
@@ -58,10 +58,8 @@ def myNetwork():
     
     # Added static routes to interconnect each router's interfaces to connect the two subnets.
     # Static Routes: r3
-    # info(net['r3'].cmd ('ip route add 10.0.1.0/24 via 192.168.0.0 dev r3-eth1'))
-    # info(net['r3'].cmd ('ip route add 192.168.1.0/30 via 192.168.0.0 dev r3-eth1'))
-    info(net['r3'].cmd ('ip route add 192.168.1.0/30 via 10.0.0.3 dev r3-eth0'))
-    info(net['r3'].cmd ('ip route add 10.0.1.0/24 via 192.168.0.1 dev r3-eth1'))
+    info(net['r3'].cmd ('ip route add 192.168.1.0/30 via 192.168.0.2 dev r3-eth1'))
+    info(net['r3'].cmd ('ip route add 10.0.1.0/24 via 192.168.0.2 dev r3-eth1'))
     # Static Routes: r4
     info(net['r4'].cmd ('ip route add 10.0.0.0/24 via 192.168.0.1 dev r4-eth0'))
     info(net['r4'].cmd ('ip route add 10.0.1.0/24 via 192.168.1.2 dev r4-eth1'))
