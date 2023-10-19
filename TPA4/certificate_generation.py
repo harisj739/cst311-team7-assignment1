@@ -50,3 +50,6 @@ subprocess.call(["cp", "web_server.crt", "/etc/ssl/certs/"])
 subprocess.call(["cp", "web_server.key", "/etc/ssl/private/"])
 subprocess.call(["cp", "chat_server.crt", "/etc/ssl/certs/"])
 subprocess.call(["cp", "chat_server.key", "/etc/ssl/private/"])
+# Add the IP addresses and names of the CN in /etc/hosts.
+subprocess.call(["sudo", "sed", "-i", "5i 127.0.0.1       chat_server.pa4.test", "/etc/hosts"])
+subprocess.call(["sudo", "sed", "-i", "6i 10.0.0.5        www.webpa4.test", "/etc/hosts"])
