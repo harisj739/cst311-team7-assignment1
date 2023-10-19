@@ -1,9 +1,17 @@
+"""Chat client for CST311 Programming Assignment 4"""
+__author__ = "Team 7 - SSS"
+__credits__ = [
+  "Andrew Grant",
+  "Anthony Matricia",
+  "Haris Jilani"
+]
+
 import socket
 import threading
 
 # Client configuration
-SERVER_HOST = '127.0.0.1'  # Server's IP address *DOUBLE CHECK WHEN RUN*
-SERVER_PORT = 12345  # Port used by the chat server
+SERVER_HOST = '10.0.0.1'  # Server's IP address *DOUBLE CHECK WHEN RUN*
+SERVER_PORT = 2223  # Port used by the chat server
 
 def receive_messages(client_socket):
     while True:
