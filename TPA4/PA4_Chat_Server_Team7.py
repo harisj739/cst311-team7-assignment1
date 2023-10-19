@@ -1,9 +1,17 @@
+"""Chat client for CST311 Programming Assignment 4"""
+__author__ = "Team 7 - SSS"
+__credits__ = [
+  "Andrew Grant",
+  "Anthony Matricia",
+  "Haris Jilani"
+]
+
 import socket
 import threading
 
 # Server configuration
 HOST = '0.0.0.0'  # Listen on all available network interfaces
-PORT = 12345  # Port for the chat server
+PORT = 2223  # Port for the chat server
 
 # List to store connected clients
 clients = []
