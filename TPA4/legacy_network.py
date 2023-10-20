@@ -85,11 +85,11 @@ def myNetwork():
     # these windows need to be created after the entire network is created -- keldin
     #using makeTerm to open individual terminal windows
     # Update: Removed the cmd parameter for h1, h3, & h4 to enable them to display along with h2.
-    makeTerm(h1, title='Node', term='xterm', display=None)
-    makeTerm(h2, title='Node', term='xterm', display=None, cmd='python3 CST311/tlswebserver.py')
-    makeTerm(h3, title='Node', term='xterm', display=None)
-    makeTerm(h4, title='Node', term='xterm', display=None)
-
+    makeTerm(h1, title='Node', term='xterm', display=None, cmd='python3 PA4_Chat_Client_Team7.py; bash')
+    makeTerm(h2, title='Node', term='xterm', display=None, cmd='python3 CST311/tlswebserver.py; bash')
+    makeTerm(h3, title='Node', term='xterm', display=None, cmd='python3 PA4_Chat_Client_Team7.py; bash')
+    makeTerm(h4, title='Node', term='xterm', display=None, cmd='python3 PA4_Chat_Server_Team7.py; bash') 
+    
     CLI(net)
     net.stop()
     # after you exit mininet, also close all the active terminal windows -- keldin
