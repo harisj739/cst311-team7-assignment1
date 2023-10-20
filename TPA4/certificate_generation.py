@@ -41,10 +41,12 @@ generate_certificate_signing_request(web_server_key_filename, web_server_csr_fil
 
 
 # Using Lab 6A Step 23 to generate certificate.
-# Update: Changed path from 
-def generate_certificate(key_filename, csr_filename, common_name):
-    subprocess.run(["sudo", "openssl", "x509", "-req", "-days", "365", "-in", csr_filename, "-CA","/etc/ssl/demoCA/cacert.pem", "-CAkey", "/etc/ssl/demoCA/private/cakey.pem", "-CAcreateserial", "-out", key_filename])
+# Update: Changed the key_filename argument to cert_filename which is the name of the server certificate.
+def generate_certificate(cert_filename, csr_filename, common_name):
+    subprocess.run(["sudo", "openssl", "x509", "-req", "-days", "365", "-in", csr_filename, "-CA","/etc/ssl/demoCA/cacert.pem", "-CAkey", "/etc/ssl/demoCA/private/cakey.pem", "-CAcreateserial", "-out", cert_filename])
 
-# Removed the key_filename argument.
-generate_certificate(chat_server_key_filename, chat_server_csr_filename, chat_server_common_name)
-generate_certificate(web_server_key_filename, web_server_csr_filename, web_server_common_name)
+chat_server_cert_filename = "chatserver-cert.pem"
+web_server_cert_filename = "webserver-cert.pem"
+
+generate_certificate(chat_server_cert_filename, chat_server_csr_filename, chat_server_common_name)
+generate_certificate(web_server_cert_filename, web_server_csr_filename, web_server_common_name)
