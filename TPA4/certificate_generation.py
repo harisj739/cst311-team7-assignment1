@@ -14,7 +14,7 @@ web_server_common_name = input("Enter common name for the web server: ")
 
 # Add the IP addresses and names of the CN in /etc/hosts.
 subprocess.call(["sudo", "sed", "-i", "5i 127.0.0.1       " + chat_server_common_name, "/etc/hosts"])
-subprocess.call(["sudo", "sed", "-i", "6i 10.0.0.3        " + web_server_common_name, "/etc/hosts"])
+subprocess.call(["sudo", "sed", "-i", "6i 10.0.0.2        " + web_server_common_name, "/etc/hosts"])
 
 #Lab 6A Step 8 - Generate a private key for the root certificate.
 subprocess.run(["sudo", "openssl", "genrsa", "-aes256", "-out", "cakey.pem", "2048"])
