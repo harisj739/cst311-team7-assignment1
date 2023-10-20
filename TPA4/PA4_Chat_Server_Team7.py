@@ -8,6 +8,7 @@ __credits__ = [
 
 import socket
 import threading
+import ssl  # Import the SSL module
 
 # Server configuration
 HOST = '0.0.0.0'  # Listen on all available network interfaces
@@ -15,6 +16,10 @@ PORT = 2223  # Port for the chat server
 
 # List to store connected clients
 clients = []
+
+# Load the SSL certificate and key
+context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+context.load_cert_chain("chatserver-cert.pem", "chatserver-key.pem")  # Certificate and file names
 
 def broadcast(message, client_socket):
     for client in clients:
@@ -44,7 +49,15 @@ def remove(client_socket):
 
 def main():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind((HOST, PORT))
+    server.bind((HOST, PORT)
+    
+    # Load the SSL certificate and key
+    context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    context.load_cert_chain(certfile="server_cert.pem", keyfile="server_key.pem")
+    
+    # Wrap the server socket in the SSL context
+    server = context.wrap_socket(server, server_side=True)
+
     server.listen()
 
     print(f"Server is listening on port {PORT}")
