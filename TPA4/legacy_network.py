@@ -9,6 +9,7 @@ from mininet.cli import CLI
 from mininet.log import setLogLevel, info
 from mininet.link import TCLink, Intf
 from subprocess import call
+from mininet.term import makeTerm
 
 def myNetwork():
 
@@ -40,6 +41,12 @@ def myNetwork():
     # Modified the host's IP addresses of h3 and h4 to fit the East Coast Network's address space.
     h3 = net.addHost('h3', cls=Host, ip='10.0.1.1/24', defaultRoute='via 10.0.1.4')
     h4 = net.addHost('h4', cls=Host, ip='10.0.1.2/24', defaultRoute='via 10.0.1.4')
+    
+    #using makeTerm to open individual terminal windows
+    makeTerm(h1, title='Node', term='xterm', display=None, cmd='ls; bash')
+    makeTerm(h2, title='Node', term='xterm', display=None, cmd='ls; bash')
+    makeTerm(h3, title='Node', term='xterm', display=None, cmd='ls; bash')
+    makeTerm(h4, title='Node', term='xterm', display=None, cmd='ls; bash')
 
     info( '*** Add links\n')
     net.addLink(h1, s1)
@@ -80,6 +87,9 @@ def myNetwork():
 
     CLI(net)
     net.stop()
+    
+    
+    
 
 if __name__ == '__main__':
     setLogLevel( 'info' )
