@@ -8,9 +8,10 @@ __credits__ = [
 
 import socket
 import threading
+import ssl  # Import the SSL module
 
 # Client configuration
-SERVER_HOST = '10.0.0.1'  # Server's IP address *DOUBLE CHECK WHEN RUN*
+SERVER_HOST = '10.0.1.2'  # Server's IP address of h4
 SERVER_PORT = 2223  # Port used by the chat server
 
 def receive_messages(client_socket):
@@ -26,6 +27,8 @@ def receive_messages(client_socket):
 
 def main():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client = ssl.wrap_socket(client, ssl_version=ssl.PROTOCOL_TLS_CLIENT)  # Wrap the socket with SSL
+
     client.connect((SERVER_HOST, SERVER_PORT))
 
     receive_thread = threading.Thread(target=receive_messages, args=(client,))
