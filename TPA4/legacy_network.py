@@ -41,12 +41,6 @@ def myNetwork():
     # Modified the host's IP addresses of h3 and h4 to fit the East Coast Network's address space.
     h3 = net.addHost('h3', cls=Host, ip='10.0.1.1/24', defaultRoute='via 10.0.1.4')
     h4 = net.addHost('h4', cls=Host, ip='10.0.1.2/24', defaultRoute='via 10.0.1.4')
-    
-    #using makeTerm to open individual terminal windows
-    makeTerm(h1, title='Node', term='xterm', display=None, cmd='ls; bash')
-    makeTerm(h2, title='Node', term='xterm', display=None, cmd='ls; bash')
-    makeTerm(h3, title='Node', term='xterm', display=None, cmd='ls; bash')
-    makeTerm(h4, title='Node', term='xterm', display=None, cmd='ls; bash')
 
     info( '*** Add links\n')
     net.addLink(h1, s1)
@@ -74,7 +68,6 @@ def myNetwork():
     info(net['r5'].cmd ('ip route add 10.0.0.0/24 via 192.168.1.1 dev r5-eth1'))
     info(net['r5'].cmd ('ip route add 192.168.0.0/30 via 192.168.1.1 dev r5-eth1'))
     
-    
     info( '*** Starting controllers\n')
     for controller in net.controllers:
         controller.start()
@@ -84,12 +77,18 @@ def myNetwork():
     net.get('s1').start([c0])
 
     info( '*** Post configure switches and hosts\n')
+    
+    # these windows need to be created after the entire network is created -- keldin
+    #using makeTerm to open individual terminal windows
+    makeTerm(h1, title='Node', term='xterm', display=None, cmd='ls; bash')
+    makeTerm(h2, title='Node', term='xterm', display=None, cmd='ls; bash')
+    makeTerm(h3, title='Node', term='xterm', display=None, cmd='ls; bash')
+    makeTerm(h4, title='Node', term='xterm', display=None, cmd='ls; bash')
 
     CLI(net)
     net.stop()
-    
-    
-    
+    # after you exit mininet, also close all the active terminal windows -- keldin
+    net.stopXterms()
 
 if __name__ == '__main__':
     setLogLevel( 'info' )
