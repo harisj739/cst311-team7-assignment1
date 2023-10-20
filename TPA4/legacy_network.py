@@ -10,6 +10,10 @@ from mininet.log import setLogLevel, info
 from mininet.link import TCLink, Intf
 from subprocess import call
 from mininet.term import makeTerm
+import subprocess
+
+# Generates the server certifcates prior to starting the network.
+subprocess.run(["sudo", "-E", "python3", "certificate_generation.py"])
 
 def myNetwork():
 
