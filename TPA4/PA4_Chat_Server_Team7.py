@@ -42,7 +42,7 @@ def main():
     server.bind(('', PORT))
     
     # Load the SSL certificate and key
-    context = ssl.create_default_context(ssl.Purpose.CLIENT_AUTH)
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     context.load_cert_chain(certfile="chatserver-cert.pem", keyfile="chatserver-key.pem")
    
 
