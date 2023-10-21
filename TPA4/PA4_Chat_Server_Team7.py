@@ -9,6 +9,7 @@ __credits__ = [
 import socket
 import threading
 import ssl  # Import the SSL module
+import time
 
 # Configure logging
 import logging
@@ -29,7 +30,7 @@ def handle_client(thread, client_socket, secure_socket, addr, clients):
             message = secure_socket.recv(1024).decode()
             
             # Log query information
-            log.info("Connected to client at " + str(addr) )
+            log.info("Connected to client at " + str(addr))
   	    # makes first client to respond first in host_list and sets to X
             if thread == 0:
                 clients.append(f"X : \"{message}\" ")  
