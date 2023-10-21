@@ -17,30 +17,27 @@ with open("common_name.txt", "r") as file:
 # Client configuration
 SERVER_HOST = SERVER.HOST  # Server's IP address of h4
 SERVER_PORT = SERVER.PORT  # Port used by the chat server
+print(f'The port number is {SERVER_PORT} and the server name is {SERVER_NAME}.')
 
 def receive_messages(client_socket):
-    while True:
         try:
             message = client_socket.recv(1024).decode()
-            print(message)
+            print(message.encode())
         except:
             # Handle connection errors or server disconnection
             print("Connection to the server is lost.")
             client_socket.close()
-            break
 
 def main():
     context = ssl.create_default_context()
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     secureClient = context.wrap_socket(client, server_hostname=SERVER_NAME)  # Wrap the socket with SSL
-    secureClient.connect((SERVER_NAME, SERVER.PORT))
+    secureClient.connect((SERVER_NAME, SERVER_PORT))
 
-    receive_thread = threading.Thread(target=receive_messages, args=(secureClient,))
-    receive_thread.start()
-
-    while True:
-        message = input("Input a lowercase sentence: ")
-        client.send(message.encode())
-
+    message = f'{input("Input message: ")}'
+    secureClient.send(message.encode())
+    
+    receive_messages(secureClient)
+    
 if __name__ == "__main__":
     main()
