@@ -12,6 +12,9 @@ import subprocess
 chat_server_common_name = input("Enter common name for the chat server: ")
 web_server_common_name = input("Enter common name for the web server: ")
 
+with open("common_name.txt", "w") as file:
+    file.write(chat_server_common_name)
+  
 # Add the IP addresses and names of the CN in /etc/hosts.
 # Running the chat server on h4 and the web server on h2.
 subprocess.call(["sudo", "sed", "-i", "5i 10.0.1.2        "  + chat_server_common_name, "/etc/hosts"])
@@ -38,7 +41,6 @@ web_server_csr_filename = "webserver-cert.csr"
 
 generate_certificate_signing_request(chat_server_key_filename, chat_server_csr_filename, chat_server_common_name)
 generate_certificate_signing_request(web_server_key_filename, web_server_csr_filename, web_server_common_name)
-
 
 # Using Lab 6A Step 23 to generate certificate.
 # Update: Changed the key_filename argument to cert_filename which is the name of the server certificate.
