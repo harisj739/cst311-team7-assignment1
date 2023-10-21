@@ -9,15 +9,19 @@ __credits__ = [
 import socket
 import threading
 import ssl  # Import the SSL module
+import PA4_Chat_Server_Team7 as SERVER
+# from certificate_generation import chat_server_common_name
 
+with open("common_name.txt", "r") as file:
+    SERVER_NAME = file.read()
 # Client configuration
-SERVER_HOST = '10.0.1.2'  # Server's IP address of h4
-SERVER_PORT = 2223  # Port used by the chat server
+SERVER_HOST = SERVER.HOST  # Server's IP address of h4
+SERVER_PORT = SERVER.PORT  # Port used by the chat server
 
 def receive_messages(client_socket):
     while True:
         try:
-            message = client_socket.recv(1024).decode('utf-8')
+            message = client_socket.recv(1024).decode()
             print(message)
         except:
             # Handle connection errors or server disconnection
@@ -26,17 +30,17 @@ def receive_messages(client_socket):
             break
 
 def main():
+    context = ssl.create_default_context()
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    client = ssl.wrap_socket(client, ssl_version=ssl.PROTOCOL_TLS_CLIENT)  # Wrap the socket with SSL
+    secureClient = context.wrap_socket(client, server_hostname=SERVER_NAME)  # Wrap the socket with SSL
+    secureClient.connect((SERVER_NAME, SERVER.PORT))
 
-    client.connect((SERVER_HOST, SERVER_PORT))
-
-    receive_thread = threading.Thread(target=receive_messages, args=(client,))
+    receive_thread = threading.Thread(target=receive_messages, args=(secureClient,))
     receive_thread.start()
 
     while True:
-        message = input()
-        client.send(message.encode('utf-8'))
+        message = input("Input a lowercase sentence: ")
+        client.send(message.encode())
 
 if __name__ == "__main__":
     main()
