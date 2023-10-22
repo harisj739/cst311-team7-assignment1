@@ -12,7 +12,7 @@ import ssl  # Import the SSL module
 import PA4_Chat_Server_Team7 as SERVER
 
 with open("common_name.txt", "r") as file:
-    SERVER_NAME = file.read()
+   SERVER_NAME = file.read()
 # Client configuration
 SERVER_HOST = SERVER.HOST  # Server's IP address of h4
 SERVER_PORT = SERVER.PORT  # Port used by the chat server
@@ -28,5 +28,4 @@ secureClient.send(message.encode())
     
 response = secureClient.recv(1024)
 print('From Server: ', response.decode())
-secureClient.close()
 client.close()
