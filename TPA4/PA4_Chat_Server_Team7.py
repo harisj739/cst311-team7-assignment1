@@ -1,4 +1,4 @@
-"""Chat client for CST311 Programming Assignment 4"""
+"""Chat server for CST311 Programming Assignment 4"""
 __author__ = "Team 7 - SSS"
 __credits__ = [
   "Andrew Grant",
