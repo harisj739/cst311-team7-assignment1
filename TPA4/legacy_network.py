@@ -1,4 +1,10 @@
-#!/usr/bin/python
+"""Legacy Network for CST311 Programming Assignment 4"""
+__author__ = "Team 7 - SSS"
+__credits__ = [
+  "Andrew Grant",
+  "Anthony Matricia",
+  "Haris Jilani"
+]
 
 from mininet.net import Mininet
 from mininet.node import Controller, RemoteController, OVSController
