@@ -87,8 +87,8 @@ def myNetwork():
     makeTerm(h1, title='Node', term='xterm', display=None, cmd='python3 PA4_Chat_Client_Team7.py; bash')
     makeTerm(h2, title='Node', term='xterm', display=None, cmd='python3 CST311/tlswebserver.py; bash')
     makeTerm(h3, title='Node', term='xterm', display=None, cmd='python3 PA4_Chat_Client_Team7.py; bash')
-    makeTerm(h4, title='Node', term='xterm', display=None, cmd='python3 PA4_Chat_Server_Team7.py; bash') 
-    
+    makeTerm(h4, title='Node', term='xterm', display=None, cmd='python3 PA4_Chat_Server_Team7.py; bash')
+
     CLI(net)
     net.stop()
     # after you exit mininet, also close all the active terminal windows -- keldin
