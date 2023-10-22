@@ -7,9 +7,9 @@ __credits__ = [
 ]
 
 import socket
+import time
 import threading
 import ssl  # Import the SSL module
-import time
 
 # Configure logging
 import logging
@@ -19,13 +19,13 @@ log.setLevel(logging.DEBUG)
 
 # Server configuration
 HOST = '10.0.1.2'  # Listen on all available network interfaces
-PORT = 2223  # Port for the chat server
+PORT = 12000  # Port for the chat server
 
 # The context is the TLS Protocol.
 context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 context.load_cert_chain(certfile="chatserver-cert.pem", keyfile="chatserver-key.pem")
 
-def handle_client(thread, client_socket, secure_socket, addr, clients):
+def handle_client(thread, secure_socket, addr, clients):
         try:
             message = secure_socket.recv(1024).decode()
             
@@ -50,7 +50,7 @@ def handle_client(thread, client_socket, secure_socket, addr, clients):
             # client_socket.close()
         except:
             secure_socket.close()
-            client_socket.close()
+            # log.info("Connection closed at " + str(addr))
 
 def main():
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -62,21 +62,17 @@ def main():
 
     print(f"Server is listening on port {PORT}")
     
-    try:
-         for i in range(2):
-    	        # When a client connects, create a new socket and record their address
-                client_socket, client_address = server.accept()
-                print("The i value is: ", i)
-                log.info("Connected to at " + str(client_address))
-        	# Uses the context to establish a secure TCP socket laced with TLS.
-                secureConnSocket = context.wrap_socket(client_socket, server_side=True)
+    for i in range(2):
+    	 # When a client connects, create a new socket and record their address
+         client_socket, client_address = server.accept()
+         log.info("Connected to at " + str(client_address))
+         # Uses the context to establish a secure TCP socket laced with TLS.
+         secureConnSocket = context.wrap_socket(client_socket, server_side=True)
         	
-        	# Pass the new socket and address off to a connection handler function in a thread.
-      		# Here we create a thread for each secure TCP connection established:
-                threading.Thread(target=handle_client, args=(i, client_socket, secureConnSocket, client_address, clients)).start()
-                client_socket.close()
-    
-    finally: 
-    	 server.close()
+         # Pass the new socket and address off to a connection handler function in a thread.
+      	 # Here we create a thread for each secure TCP connection established:
+         threading.Thread(target=handle_client, args=(i, secureConnSocket, client_address, clients)).start()
+         client_socket.close()
+    server.close()
 if __name__ == "__main__":
     main()
